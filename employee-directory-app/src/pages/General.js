@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-// import the API
+// import the API?
 import Container from "../components/Container";
+import Row from "../components/Row";
 
 function General() {
     // useState variables
@@ -21,29 +22,7 @@ function General() {
                             <th scope="col">Phone</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>555-555-1234</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            <td>555-555-1234</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                            <td>555-555-1234</td>
-                        </tr>
-                    </tbody>
+                    <Row />
                 </table>
             </Container>
         </div>
