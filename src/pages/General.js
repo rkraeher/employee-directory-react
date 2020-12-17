@@ -4,6 +4,12 @@ import Container from "../components/Container";
 //import Row from "../components/Row";
 //import API from "../utils/API";
 
+// This component stores state and passes it down. I have to make it so that it only generates one array on page load, not new random ones every time. 
+// Store state in parent, pass props down and map in child:
+// https://stackoverflow.com/questions/59901709/passing-props-from-parent-to-child-and-loop-using-map-in-react
+
+// I think I need a container for each Row component, so that for each iteration I get one Row component rendered. 
+
 function General() {
     const [num, setNum] = useState(0);
     const [first, setFirst] = useState("");
