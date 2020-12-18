@@ -45,9 +45,10 @@ function General() {
                         </tr>
                     </thead>
                     <tbody>
-                        {directory.map(employee =>
+                        {directory.map((employee, index) =>
                             <Row
                                 directory={employee}
+                                index={index + 1}
                             />
                         )}
                     </tbody>
