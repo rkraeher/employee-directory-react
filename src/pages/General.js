@@ -1,7 +1,7 @@
 //import Axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Container from "../components/Container";
-//import Row from "../components/Row";
+import Row from "../components/Row";
 import API from "../utils/API";
 
 // This component stores state and passes it down. I have to make it so that it only generates one array on page load, not new random ones every time. 
@@ -11,14 +11,15 @@ import API from "../utils/API";
 // I think I need a container for each Row component, so that for each iteration I get one Row component rendered. 
 
 function General() {
-    const [num, setNum] = useState(0);
-    const [first, setFirst] = useState("");
-    const [last, setLast] = useState("");
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
+    //const [counter, setCounter] = useState(0);
+    // const [first, setFirst] = useState("");
+    // const [last, setLast] = useState("");
+    // const [email, setEmail] = useState("");
+    // const [phone, setPhone] = useState("");
     const [directory, setDirectory] = useState([]);
 
     useEffect(() => {
+        //setCounter(1);
         API.fullDirectory()
             .then(employees => {
                 setDirectory(employees);
@@ -27,6 +28,7 @@ function General() {
     }, []);
 
     console.log(directory);
+    //console.log(counter);
 
     return (
         <div>
@@ -43,16 +45,11 @@ function General() {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* I mean this is working but it should really be set up to pass the directory state down to the Row component and then render this list. */}
-                        {directory.map((employee, index) => (
-                            <tr>
-                                <th scope="row">{index + 1}</th>
-                                <td>{employee.name.first}</td>
-                                <td>{employee.name.last}</td>
-                                <td>{employee.email}</td>
-                                <td>{employee.cell}</td>
-                            </tr>
-                        ))}
+                        {directory.map(employee =>
+                            <Row
+                                directory={employee}
+                            />
+                        )}
                     </tbody>
                 </table>
             </Container>

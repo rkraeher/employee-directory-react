@@ -1,19 +1,32 @@
 import React from 'react';
-// import API from "../../utils/API";
 
-function Row(props) {
+function Row({ directory }) {
+    const { first, last, email, phone } = directory;
     return (
         <tr>
-            <th scope="row">{props.num}</th>
-            <td>{props.first}</td>
-            <td>{props.last}</td>
-            <td>{props.email}</td>
-            <td>{props.phone}</td>
+            {/* Should the number be its own component? */}
+            <th scope="row">1</th>
+            <td>{first}</td>
+            <td>{last}</td>
+            <td>{email}</td>
+            <td>{phone}</td>
         </tr>
     )
 }
 
 export default Row;
+
+// {
+//     directory.map((employee, index) => (
+//         <tr>
+//             <th scope="row">{index + 1}</th>
+//             <td>{employee.name.first}</td>
+//             <td>{employee.name.last}</td>
+//             <td>{employee.email}</td>
+//             <td>{employee.cell}</td>
+//         </tr>
+//     ))
+// }
 
 
 // function Row() {
