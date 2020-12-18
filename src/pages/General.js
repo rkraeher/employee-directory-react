@@ -1,8 +1,8 @@
-import Axios from 'axios';
+//import Axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Container from "../components/Container";
 //import Row from "../components/Row";
-//import API from "../utils/API";
+import API from "../utils/API";
 
 // This component stores state and passes it down. I have to make it so that it only generates one array on page load, not new random ones every time. 
 // Store state in parent, pass props down and map in child:
@@ -18,31 +18,15 @@ function General() {
     const [phone, setPhone] = useState("");
     const [directory, setDirectory] = useState([]);
 
-    // useEffect(() => {
-
-    //     API.fullDirectory()
-    //         .then(res => {
-    //             // if (res.data.status === "error") {
-    //             //     throw new Error(res.data.message)
-    //             // }
-    //             const employees = res.data.results;
-    //             setDirectory(employees);
-    //             renderEmployees(directory);
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //         });
-    // }, []);
-
     useEffect(() => {
-        Axios("https://randomuser.me/api/?results=20")
-            .then(res => {
-                const employees = res.data.results;
+        API.fullDirectory()
+            .then(employees => {
                 setDirectory(employees);
-                console.log(employees);
             })
+            .catch(err => console.log(err));
     }, []);
 
+    console.log(directory);
 
     return (
         <div>
