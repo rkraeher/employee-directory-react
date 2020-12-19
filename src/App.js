@@ -4,22 +4,22 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Wrapper from "./components/Wrapper";
 import General from './pages/General';
+//import API from "./utils/API";
 
-// Import my pages
-// Import my components
+//Do I need this div here?
 
 function App() {
+
   return (
     <Router>
       <div>
         <Navbar />
         <Wrapper>
           <Route path="/" component={General} />
-          <Route path="/general" component={General} />
         </Wrapper>
         <Footer />
       </div>
-    </Router>
+    </Router >
   );
 }
 
