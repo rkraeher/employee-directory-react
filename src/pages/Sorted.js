@@ -2,7 +2,7 @@ import Container from "../components/Container";
 import RowContainer from '../components/RowContainer';
 import TableHeading from "../components/TableHeading";
 
-function General({ page, directory }) {
+function Sorted({ page, directory }) {
 
     return (
         <Container>
@@ -15,4 +15,4 @@ function General({ page, directory }) {
     );
 }
 
-export default General;
+export default Sorted;
