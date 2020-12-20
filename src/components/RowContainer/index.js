@@ -26,7 +26,7 @@ function RowContainer({ directory, currentPage }) {
 
     return (
         <tbody>
-            {employees
+            {directory
                 .map((employee, index) =>
                     <Row
                         directory={employee}

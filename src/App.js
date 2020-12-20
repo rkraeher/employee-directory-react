@@ -13,27 +13,12 @@ import Sorted from "./pages/Sorted";
 // I eliminated duplicates by using exact path.
 
 function App() {
-  const [directory, setDirectory] = useState([]);
-
-  useEffect(() => {
-    loadDirectory();
-  }, []);
-
-  function loadDirectory() {
-    API.fullDirectory()
-      .then(employees => {
-        setDirectory(employees);
-      })
-      .catch(err => console.log(err));
-  }
 
   return (
     <Router>
       <Navbar />
       <Wrapper>
-        <Route exact path="/" render={props => <General {...props} page="/" directory={directory} />} />
-        <Route exact path="/general" render={props => <General {...props} page="general" directory={directory} />} />
-        <Route exact path="/sort" render={props => <Sorted {...props} page="sorted" directory={directory} />} />
+        <Route exact path="/" component={General} />
       </Wrapper>
       <Footer />
     </Router >
