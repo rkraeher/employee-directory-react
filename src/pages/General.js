@@ -4,6 +4,9 @@ import TableHeading from "../components/TableHeading";
 import API from "../utils/API";
 import { useEffect, useState } from "react";
 
+// Create a filter button component
+// Button should drop down to filter results in to 5, 10, 20, or 50 results in API
+
 function General() {
     const [directory, setDirectory] = useState([]);
 
