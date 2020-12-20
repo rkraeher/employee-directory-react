@@ -2,6 +2,7 @@ import Container from "../components/Container";
 import RowContainer from '../components/RowContainer';
 import TableHeading from "../components/TableHeading";
 import API from "../utils/API";
+import FilterButton from "../components/FilterButton";
 import { useEffect, useState } from "react";
 
 // Create a filter button component
@@ -39,7 +40,14 @@ function General() {
 
     return (
         <Container>
-            <h1 className="text-center m-2">Employee Directory</h1>
+            <h1 className="text-center m-3">
+                Employee Directory
+            </h1>
+
+            <div className="text-center m-3">
+                <FilterButton />
+            </div>
+
             <table className="table table-dark m-3">
                 <TableHeading handleClick={handleSort} />
                 <RowContainer directory={directory} />
