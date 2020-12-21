@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Row from "../Row";
 
-function RowContainer({ directory }) {
+function RowContainer({ directory, filter }) {
+    const [employees, setEmployees] = useState(directory);
+    useEffect(() => {
+        const array = directory.slice(0, filter);
+        setEmployees(array);
+    }, [filter, directory]);
 
     return (
         <tbody>
-            {directory
+            {employees
                 .map((employee, index) =>
                     <Row
                         directory={employee}

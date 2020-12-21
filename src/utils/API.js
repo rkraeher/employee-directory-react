@@ -5,7 +5,7 @@ import axios from "axios";
 export default {
     fullDirectory: function () {
         return new Promise((resolve, reject) => {
-            axios.get("https://randomuser.me/api/?results=20")
+            axios.get("https://randomuser.me/api/?results=50")
                 .then(res => {
                     const employees = res.data.results;
                     const results = employees.map(employee => {
