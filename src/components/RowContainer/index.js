@@ -26,6 +26,7 @@ function RowContainer({ directory, filterNum, nameRange }) {
             // Just prints all false
 
             //Try: https://stackoverflow.com/questions/14978625/regex-to-check-whether-string-starts-with-ignoring-case-differences
+            // Or: Phone tabs about using the reduce method
         }
     }
 

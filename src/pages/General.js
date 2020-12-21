@@ -69,6 +69,7 @@ function General() {
                 Employee Directory
             </h1>
             {/* See BS layout: https://react-bootstrap.netlify.app/layout/grid/ */}
+            {/* Add informational text: click on last and first name to sort */}
             <div className="row justify-content">
                 <div className="m-3">
                     <FilterNumber handleClick={handleClick} />
