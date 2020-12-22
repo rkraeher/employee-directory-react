@@ -16,6 +16,8 @@ function General() {
     const [dirLength, setDirLength] = useState(50);
     const [nameRange, setNameRange] = useState("A-Z");
 
+    //  When I sort by new length, use another state object and save the group to a new array, instead of using the original. 
+
     useEffect(() => {
         API.fullDirectory()
             .then(employees => {

@@ -3,10 +3,12 @@ import Row from "../Row";
 
 function RowContainer({ directory, filterNum, nameRange }) {
     const [employees, setEmployees] = useState(directory);
+
     useEffect(() => {
         const array = directory.slice(0, filterNum);
         //filterName(nameRange, directory);
         setEmployees(array);
+        console.log(directory.reduce(getSections));
     }, [filterNum, directory]);
 
     const getSections = () => {
@@ -26,7 +28,7 @@ function RowContainer({ directory, filterNum, nameRange }) {
             }, {})
         );
     }
-    console.log(directory.reduce(getSections));
+    // console.log(directory.reduce(getSections));
     //Ok so this^ prints sometimes, other times 'can't reduce empty array' I think it is getting stuck and running before the mounting process happens and populates the array. 
     // If I sort alphabetically first, it console logs the alphabetic sections in alphabetic order
 
