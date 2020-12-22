@@ -6,25 +6,59 @@ import FilterLetter from "../components/FilterLetter";
 import { useEffect, useState } from "react";
 import FilterNumber from "../components/FilterNumber";
 
-//Filter works but always gives top 5/10 etc. alphabetically
-// How can I get 5/10 randomly? Randomize the directory...
-// Have another state that sends down the shortened one, to isolate the full 50 item array...
-// Create a filter for lastName or firstName starts with
-
 function General() {
     const [directory, setDirectory] = useState([]);
+    const [fullDir, setFullDir] = useState([]);
     const [dirLength, setDirLength] = useState(50);
     const [nameRange, setNameRange] = useState("A-Z");
 
-    //  When I sort by new length, use another state object and save the group to a new array, instead of using the original. 
+    // const [allMatches, setMatches] = useState([]);
+    // const [allNonMatches, setNonMatches] = useState([]);
+
 
     useEffect(() => {
         API.fullDirectory()
             .then(employees => {
                 setDirectory(employees);
+
+            })
+            .then(res => {
+                setFullDir(directory)
+
+            })
+            .then(res => {
+                grouping(fullDir);
             })
             .catch(err => console.log(err));
     }, []);
+
+    function grouping(array) {
+        let names = [];
+        for (var i = 0; i < array.length; i++) {
+            names.push(array[i].last);
+            let lasts = [];
+            for (var x = 0; x < names.length; x++) {
+                lasts.push(names[x].charAt(0));
+                const AE = /^[A-E]+$/g;
+                var matches = [];
+                var nonmatches = [];
+                for (var y = 0; y < lasts.length; y++) {
+                    if ((AE.test(lasts[y])) === true) {
+                        matches.push(lasts[y]);
+                    } else {
+                        nonmatches.push(lasts[y]);
+                    }
+                }
+                //I think I need to somehow return/extract these arrays - still can't get them on the console
+                // Problem is that I end up with a one item array, one shows the letter, another an empty array. 
+                // It isn't adding them into a larger array or I'm not consoling it correctly.
+                console.log(matches);
+                console.log(nonmatches);
+            }
+        }
+    }
+
+
 
     // Maybe put this in another file?
     function handleClick(e) {
@@ -72,6 +106,7 @@ function General() {
             </h1>
             {/* See BS layout: https://react-bootstrap.netlify.app/layout/grid/ */}
             {/* Add informational text: click on last and first name to sort */}
+            {/* Add a button to return original array */}
             <div className="row justify-content">
                 <div className="m-3">
                     <FilterNumber handleClick={handleClick} />
