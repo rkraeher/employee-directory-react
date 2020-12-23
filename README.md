@@ -17,7 +17,7 @@
 Clone the repo and `npm install` all dependencies. 
 
 ## Usage
-Visit the site url: https://github.com/rkraeher/employee-directory-react/settings
+Visit the site url: https://rkraeher.github.io/employee-directory-react/
 
 ## Technologies
 React.js, Random User Generator API.
