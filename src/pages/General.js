@@ -54,15 +54,15 @@ function General() {
                 setDirectory(orderedTotal);
                 break;
             case "FL":
-                var orderedTotal = Grouping.grouping(directory, "FL");
+                orderedTotal = Grouping.grouping(directory, "FL");
                 setDirectory(orderedTotal);
                 break;
             case "MS":
-                var orderedTotal = Grouping.grouping(directory, "MS");
+                orderedTotal = Grouping.grouping(directory, "MS");
                 setDirectory(orderedTotal);
                 break;
             case "TZ":
-                var orderedTotal = Grouping.grouping(directory, "TZ");
+                orderedTotal = Grouping.grouping(directory, "TZ");
                 setDirectory(orderedTotal);
                 break;
             default:

@@ -1,3 +1,5 @@
+/* eslint-disable import/no-anonymous-default-export */
+/* eslint-disable no-unused-vars */
 import MergeSorted from "./MergeSorted";
 import SortArray from "./SortArray";
 
