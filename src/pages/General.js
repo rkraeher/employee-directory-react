@@ -5,34 +5,42 @@ import API from "../utils/API";
 import FilterLetter from "../components/FilterLetter";
 import { useEffect, useState } from "react";
 import FilterNumber from "../components/FilterNumber";
+import Grouping from "../utils/Grouping";
+import SortArray from "../utils/SortArray";
 
-//Filter works but always gives top 5/10 etc. alphabetically
-// How can I get 5/10 randomly? Randomize the directory...
-// Have another state that sends down the shortened one, to isolate the full 50 item array...
-// Create a filter for lastName or firstName starts with
+const style = { display: "flex", justifyContent: "center" };
 
 function General() {
+    //This state changes and gets sent down
     const [directory, setDirectory] = useState([]);
+    //This state keeps a record of the original API fetch
+    const [fullDir, setFullDir] = useState([]);
+    //This state is for result length
     const [dirLength, setDirLength] = useState(50);
-    const [nameRange, setNameRange] = useState("A-Z");
 
     useEffect(() => {
         API.fullDirectory()
             .then(employees => {
                 setDirectory(employees);
             })
+            .then(res => {
+                setFullDir(directory);
+            })
             .catch(err => console.log(err));
     }, []);
 
-    // Maybe put this in another file?
     function handleClick(e) {
         e.preventDefault();
         const btnName = e.target.getAttribute("data-value");
         switch (btnName) {
             case "last":
-                return sortCol("last");
+                var sortedLast = SortArray.sortArray(directory, "last");
+                setDirectory(sortedLast);
+                break;
             case "first":
-                return sortCol("first");
+                var sortedFirst = SortArray.sortArray(directory, "first");
+                setDirectory(sortedFirst);
+                break;
             case "5":
                 return setDirLength(5);
             case "10":
@@ -42,35 +50,33 @@ function General() {
             case "50":
                 return setDirLength(50);
             case "AE":
-                return setNameRange("AE");
+                var orderedTotal = Grouping.grouping(directory, "AE");
+                setDirectory(orderedTotal);
+                break;
             case "FL":
-                return setNameRange("FL");
+                var orderedTotal = Grouping.grouping(directory, "FL");
+                setDirectory(orderedTotal);
+                break;
             case "MS":
-                return setNameRange("MS");
+                var orderedTotal = Grouping.grouping(directory, "MS");
+                setDirectory(orderedTotal);
+                break;
             case "TZ":
-                return setNameRange("TZ");
+                var orderedTotal = Grouping.grouping(directory, "TZ");
+                setDirectory(orderedTotal);
+                break;
             default:
                 setDirLength(50);
-                setNameRange("AZ");
-                return directory;
+                return setDirectory(fullDir);
         }
     }
-
-    function sortCol(criteria) {
-        const sorted = [].concat(directory)
-            .sort((a, b) => a[criteria] > b[criteria] ? 1 : -1);
-        setDirectory(sorted);
-    }
-
 
     return (
         <Container>
             <h1 className="text-center m-3">
                 Employee Directory
             </h1>
-            {/* See BS layout: https://react-bootstrap.netlify.app/layout/grid/ */}
-            {/* Add informational text: click on last and first name to sort */}
-            <div className="row justify-content">
+            <div className="row" style={style}>
                 <div className="m-3">
                     <FilterNumber handleClick={handleClick} />
                 </div>
@@ -78,12 +84,16 @@ function General() {
                     <FilterLetter handleClick={handleClick} />
                 </div>
             </div>
-            <table className="table table-dark m-3">
-                <TableHeading handleClick={handleClick} />
-                <RowContainer directory={directory} filterNum={dirLength} filterLet={nameRange} />
-            </table>
-
-        </Container>
+            <div className="row">
+                <table className="table table-dark m-3">
+                    <TableHeading
+                        handleClick={handleClick} />
+                    <RowContainer
+                        directory={directory}
+                        filterNum={dirLength} />
+                </table>
+            </div>
+        </Container >
     );
 }
 
