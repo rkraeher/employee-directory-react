@@ -5,70 +5,96 @@ import API from "../utils/API";
 import FilterLetter from "../components/FilterLetter";
 import { useEffect, useState } from "react";
 import FilterNumber from "../components/FilterNumber";
+import grouping from "../utils/Grouping";
+import mergeSorted from "../utils/MergeSorted";
+//import sortArray from "../utils/SortArray";
 
 function General() {
+    //This state changes and gets sent down
     const [directory, setDirectory] = useState([]);
+    //This state keeps a record of the original, API fetch
     const [fullDir, setFullDir] = useState([]);
+    //This state is for result length
     const [dirLength, setDirLength] = useState(50);
-    const [nameRange, setNameRange] = useState("A-Z");
-
-    // const [allMatches, setMatches] = useState([]);
-    // const [allNonMatches, setNonMatches] = useState([]);
-
 
     useEffect(() => {
         API.fullDirectory()
             .then(employees => {
                 setDirectory(employees);
-
             })
             .then(res => {
-                setFullDir(directory)
-
-            })
-            .then(res => {
-                grouping(fullDir);
+                setFullDir(directory);
             })
             .catch(err => console.log(err));
     }, []);
 
-    function grouping(array) {
-        let names = [];
-        for (var i = 0; i < array.length; i++) {
-            names.push(array[i].last);
-            let lasts = [];
-            for (var x = 0; x < names.length; x++) {
-                lasts.push(names[x].charAt(0));
-                const AE = /^[A-E]+$/g;
-                var matches = [];
-                var nonmatches = [];
-                for (var y = 0; y < lasts.length; y++) {
-                    if ((AE.test(lasts[y])) === true) {
-                        matches.push(lasts[y]);
-                    } else {
-                        nonmatches.push(lasts[y]);
-                    }
-                }
-                //I think I need to somehow return/extract these arrays - still can't get them on the console
-                // Problem is that I end up with a one item array, one shows the letter, another an empty array. 
-                // It isn't adding them into a larger array or I'm not consoling it correctly.
-                console.log(matches);
-                console.log(nonmatches);
-            }
-        }
+    //TODO: Export this to clean up the component...
+    //https://flaviocopes.com/how-to-export-multiple-functions-javascript/
+    //https://github.com/airbnb/react-sketchapp/issues/185
+    // Or, do it like the API example, wrap the functions inside the component. 
+    //Not sure if this will work, because mergeSorted sets directory, 
+    //so maybe I need to leave that here and import/export it to the grouping file.
+    // function grouping(array, group) {
+    //     var gotRange = getRange();
+    //     var matches = [];
+    //     var nonmatches = [];
+
+    //     const getRange = () => {
+    //         var range;
+    //         switch (group) {
+    //             case "AE":
+    //                 return range = /^[A-E]+$/;
+    //             case "FL":
+    //                 return range = /^[F-L]+$/;
+    //             case "MS":
+    //                 return range = /^[M-S]+$/;
+    //             case "TZ":
+    //                 return range = /^[T-Z]+$/;
+    //             default:
+    //                 return range = /^[A-Z]+$/;
+    //         }
+    //     }
+    //     // This loop organizes the directory based on an alphabetic chunk, and unshifts
+    //     // the current queried chunk, so that it appears first in the client. 
+    //     //TODO: (1) Grouping only works by last name. Add first name functionality. 
+    //     //TODO: (2) Could be improved to ensure asynchronous execution.
+    //     for (var i = 0; i < array.length; i++) {
+    //         if ((gotRange.test(array[i].last.charAt(0)))) {
+    //             matches.push(array[i]);
+    //         } else {
+    //             nonmatches.push(array[i]);
+    //         }
+    //         var sortedMatches = sortArray(matches, "last");
+    //         var sortedNonMatches = sortArray(nonmatches, "last");
+    //     }
+    //     mergeSorted(sortedMatches, sortedNonMatches);
+    // }
+
+    // function mergeSorted(front, back) {
+    //     var orderedTotal = front.concat(back);
+    //     return setDirectory(orderedTotal);
+    // }
+
+    //TODO: Next, for cleaningup, import/export sortArray
+
+    function sortArray(array, criteria) {
+        const sorted = [].concat(array)
+            .sort((a, b) => a[criteria] > b[criteria] ? 1 : -1);
+        return sorted;
     }
 
-
-
-    // Maybe put this in another file?
     function handleClick(e) {
         e.preventDefault();
         const btnName = e.target.getAttribute("data-value");
         switch (btnName) {
             case "last":
-                return sortCol("last");
+                var sortedLast = sortArray(directory, "last");
+                setDirectory(sortedLast);
+                break;
             case "first":
-                return sortCol("first");
+                var sortedFirst = sortArray(directory, "first");
+                setDirectory(sortedFirst);
+                break;
             case "5":
                 return setDirLength(5);
             case "10":
@@ -78,35 +104,27 @@ function General() {
             case "50":
                 return setDirLength(50);
             case "AE":
-                return setNameRange("AE");
+                // return grouping(directory, "AE");
+                var orderedTotal = grouping(directory, "AE");
+                setDirectory(orderedTotal);
+                break;
             case "FL":
-                return setNameRange("FL");
+            //return Grouping(directory, "FL");
             case "MS":
-                return setNameRange("MS");
+            //return Grouping(directory, "MS");
             case "TZ":
-                return setNameRange("TZ");
+            //return Grouping(directory, "TZ");
             default:
                 setDirLength(50);
-                setNameRange("AZ");
-                return directory;
+                return setDirectory(fullDir);
         }
     }
-
-    function sortCol(criteria) {
-        const sorted = [].concat(directory)
-            .sort((a, b) => a[criteria] > b[criteria] ? 1 : -1);
-        setDirectory(sorted);
-    }
-
 
     return (
         <Container>
             <h1 className="text-center m-3">
                 Employee Directory
             </h1>
-            {/* See BS layout: https://react-bootstrap.netlify.app/layout/grid/ */}
-            {/* Add informational text: click on last and first name to sort */}
-            {/* Add a button to return original array */}
             <div className="row justify-content">
                 <div className="m-3">
                     <FilterNumber handleClick={handleClick} />
@@ -117,7 +135,7 @@ function General() {
             </div>
             <table className="table table-dark m-3">
                 <TableHeading handleClick={handleClick} />
-                <RowContainer directory={directory} filterNum={dirLength} filterLet={nameRange} />
+                <RowContainer directory={directory} filterNum={dirLength} />
             </table>
 
         </Container>
@@ -125,3 +143,4 @@ function General() {
 }
 
 export default General;
+//Do these need to be their own components? export { mergeSorted, sortArray };
