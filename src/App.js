@@ -10,7 +10,7 @@ function App() {
     <Router>
       <Navbar />
       <Wrapper>
-        <Route exact path={"/" || "/employee-directory-react/"} component={General} />
+        <Route exact path={"/employee-directory-react"} component={General} />
       </Wrapper>
       <Footer />
     </Router >
