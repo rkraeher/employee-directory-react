@@ -14,6 +14,4 @@ function FilterLetter({ handleClick }) {
     );
 }
 
-//I want this dropdown out of the way, possibly in the navbar
-
 export default FilterLetter;

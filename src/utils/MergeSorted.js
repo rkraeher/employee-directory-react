@@ -1,7 +1,6 @@
 export default {
-    mergeSorted: function (front, back) {
-        var orderedTotal = front.concat(back);
+    mergeSorted: function (front, end) {
+        var orderedTotal = front.concat(end);
         return orderedTotal;
-        //needs to setDirectory to orderedTotal
     }
 };

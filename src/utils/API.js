@@ -1,7 +1,6 @@
-/* eslint-disable import/no-anonymous-default-export */
 import axios from "axios";
 
-// Export an object containing method we'll use for accessing the Random User Generator
+//Random User Generator
 export default {
     fullDirectory: function () {
         return new Promise((resolve, reject) => {
