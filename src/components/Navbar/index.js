@@ -6,7 +6,7 @@ function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <Link
-                className="navbar-brand" to="/">
+                className="navbar-brand" to="/employee-directory-react/">
                 Home
             </Link>
         </nav>
